@@ -8,14 +8,18 @@ import {
   Legend,
   CartesianGrid,
 } from "recharts";
+import axios from "axios";
 
 const App = () => {
   const [selectedImage, setSelectedImage] = useState();
+  const [isUploading, setIsUploading] = useState(false);
   const data = [
-    { name: "Facebook", value: 200000 },
-    { name: "Twitter", value: 150000 },
-    { name: "Instagram", value: 3452000 },
-    { name: "Whatsapp", value: 4120000 },
+    { name: "Melanocytic nevi", value: 10 },
+    { name: "Benign keratosis-like lesions", value: 85 },
+    { name: "Basal cell carcinoma", value: 1 },
+    { name: "Actinic keratoses", value: 2 },
+    { name: "Vascular lesions", value: 1 },
+    { name: "Dermatofibroma", value: 1 },
   ];
 
   // This function will be triggered when the file field change
@@ -25,9 +29,31 @@ const App = () => {
     }
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    alert(URL.createObjectURL(selectedImage));
+
+    setIsUploading(true);
+
+    // Get the image URL from the selected file
+    const imageUrl = URL.createObjectURL(selectedImage);
+
+    try {
+      // Send a POST request with the URL
+      const response = await axios.post("/api/upload-image", { imageUrl });
+
+      // Handle the response from your backend
+      if (response.data.success) {
+        setIsUploading(false);
+        alert("Image uploaded successfully!");
+      } else {
+        setIsUploading(false);
+        alert("Error uploading image: " + response.data.error);
+      }
+    } catch (error) {
+      setIsUploading(false);
+      console.error(error);
+      alert("An unexpected error occurred");
+    }
   };
 
   // This function will be triggered when the "Remove This Image" button is clicked
@@ -51,9 +77,7 @@ const App = () => {
               />
             </div>{" "}
             <br />
-            <button type="submit" className="btn btn-success">
-              Upload File
-            </button>
+            <button onClick={onSubmit}>Buton</button>
           </form>
 
           {selectedImage && (
@@ -71,7 +95,7 @@ const App = () => {
         </div>
 
         <BarChart
-          width={500}
+          width={1200}
           height={300}
           data={data}
           margin={{
@@ -80,7 +104,7 @@ const App = () => {
             left: 20,
             bottom: 5,
           }}
-          barSize={20}
+          barSize={50}
         >
           <XAxis
             dataKey="name"
