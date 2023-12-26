@@ -75,18 +75,12 @@ public class ImageController {
     }
 
     @PostMapping("/response")
-    public ResponseEntity<String> handlePostRequest(@RequestBody Map<String, Object> payload) {
+    public ResponseEntity<String> handlePostRequest(@RequestParam Map<String, Object> payload) {
         Response response = new Response();
         response.setJson(payload.toString());
         return ResponseEntity.ok(response.getJson());
     }
 
-    @GetMapping("/responseSend")
-    public ResponseEntity<String> handleGetRequest(@RequestBody Map<String, Object> payload) {
-        Response response = new Response();
-        response.setJson(payload.toString());
-        return ResponseEntity.ok(response.getJson());
-    }
 
     public void forwardImage(MultipartFile file) throws Exception {
         String apiUrl = "http://127.0.0.1:5000/upload";
