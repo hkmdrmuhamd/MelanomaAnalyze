@@ -52,6 +52,8 @@ package com.example.backend.API;
 //
 
 import com.example.backend.Dtos.Response;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -64,6 +66,9 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 public class ImageController {
+
+    private Map<String, String> data;
+
     @PostMapping("/upload")
     public ResponseEntity<String> uploadImage(@RequestParam("image") MultipartFile file) {
         try {
@@ -73,14 +78,16 @@ public class ImageController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
-    @PostMapping("/response")
-    public ResponseEntity<String> handlePostRequest(@RequestParam Map<String, Object> payload) {
-        Response response = new Response();
-        response.setJson(payload.toString());
-        return ResponseEntity.ok(response.getJson());
+    @PostMapping("/data")
+    public String receiveData(@RequestBody Map<String, String> data) {
+        this.data = data;
+        return "Veri başarıyla alındı!";
     }
 
+    @GetMapping("/data")
+    public Map<String, String> sendData() {
+        return this.data;
+    }
 
     public void forwardImage(MultipartFile file) throws Exception {
         String apiUrl = "http://127.0.0.1:5000/upload";
