@@ -28,39 +28,9 @@ from sklearn.model_selection import train_test_split
 import os
 
 
-
-#
-# def plot_model_history(model_history):
-#     fig, axs = plt.subplots(1,2,figsize=(15,5))
-#     # summarize history for accuracy
-#     axs[0].plot(range(1,len(model_history['acc'])+1),model_history['acc'])
-#     axs[0].plot(range(1,len(model_history.history['val_acc'])+1),model_history.history['val_acc'])
-#     axs[0].set_title('Model Accuracy')
-#     axs[0].set_ylabel('Accuracy')
-#     axs[0].set_xlabel('Epoch')
-#     axs[0].set_xticks(np.arange(1,len(model_history.history['acc'])+1),len(model_history.history['acc'])/10)
-#     axs[0].legend(['train', 'val'], loc='best')
-#     # summarize history for loss
-#     axs[1].plot(range(1,len(model_history.history['loss'])+1),model_history.history['loss'])
-#     axs[1].plot(range(1,len(model_history.history['val_loss'])+1),model_history.history['val_loss'])
-#     axs[1].set_title('Model Loss')
-#     axs[1].set_ylabel('Loss')
-#     axs[1].set_xlabel('Epoch')
-#     axs[1].set_xticks(np.arange(1,len(model_history.history['loss'])+1),len(model_history.history['loss'])/10)
-#     axs[1].legend(['train', 'val'], loc='best')
-#     plt.show()
-#
-#
-
-
 base_skin_dir = 'input/skin-cancer-mnist-ham10000'
-
-# Merging images from both folders HAM10000_images_part1.zip and HAM10000_images_part2.zip into one dictionary
-
 imageid_path_dict = {os.path.splitext(os.path.basename(x))[0]: x
                      for x in glob(os.path.join(base_skin_dir, '*', '*.jpg'))}
-
-# This dictionary is useful for displaying more human-friendly labels later on
 
 lesion_type_dict = {
     'nv': 'Melanocytic nevi',
@@ -73,13 +43,8 @@ lesion_type_dict = {
 }
 
 
-
-
-# skin_df = pd.read_csv(os.path.join(base_skin_dir, 'HAM10000_metadata.csv'))
 skin_df=pd.read_csv('input/skin-cancer-mnist-ham10000/HAM10000_metadata.csv')
 skin_df.head()
-
-# Creating New Columns for better readability
 
 skin_df['path'] = skin_df['image_id'].map(imageid_path_dict.get)
 skin_df['cell_type'] = skin_df['dx'].map(lesion_type_dict.get)
@@ -161,17 +126,12 @@ learning_rate_reduction = ReduceLROnPlateau(monitor='val_acc',
                                             min_lr=0.00001)
 
 datagen = ImageDataGenerator(
-        # featurewise_center=False,  # set input mean to 0 over the dataset
-        # samplewise_center=False,  # set each sample mean to 0
-        # featurewise_std_normalization=False,  # divide inputs by std of the dataset
-        # samplewise_std_normalization=False,  # divide each input by its std
-        # zca_whitening=False,  # apply ZCA whitening
-        rotation_range=10,  # randomly rotate images in the range (degrees, 0 to 180)
-        zoom_range = 0.1, # Randomly zoom image
-        width_shift_range=0.1,  # randomly shift images horizontally (fraction of total width)
-        height_shift_range=0.1,  # randomly shift images vertically (fraction of total height)
-        horizontal_flip=False,  # randomly flip images
-        vertical_flip=False)  # randomly flip images
+        rotation_range=10, 
+        zoom_range = 0.1, 
+        width_shift_range=0.1, 
+        height_shift_range=0.1, 
+        horizontal_flip=False, 
+        vertical_flip=False)  
 
 datagen.fit(x_train)
 
@@ -201,7 +161,7 @@ plt.ylabel('accuracy')
 plt.xlabel('epoch')
 plt.legend(['train', 'test'], loc='upper left')
 plt.show()
-# summarize history for loss
+
 plt.plot(history.history['loss'])
 plt.plot(history.history['val_loss'])
 plt.title('model loss')
