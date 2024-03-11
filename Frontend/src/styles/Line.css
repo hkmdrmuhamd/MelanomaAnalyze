@@ -1,0 +1,11 @@
+.line-container {
+    position: relative;
+    width: 100%;
+    background-color: white;
+}
+
+.horizontal-line {
+    top: 30%;
+    width: 100%;
+    border-top: 5px solid;
+}

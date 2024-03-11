@@ -78,6 +78,7 @@ public class ImageController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     @PostMapping("/data")
     public String receiveData(@RequestBody Map<String, String> data) {
         this.data = data;

@@ -1,0 +1,136 @@
+body {
+    background: #272d3b;
+    font-family: 'Verdana';
+}
+
+.title {
+    color: #fff;
+    text-transform: uppercase;
+    padding: 20px 0;
+}
+
+a.button_link {
+    box-sizing: border-box;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    display: inline-block;
+    position: relative;
+    padding: 15px 20px;
+    margin: 40px 40px;
+    background: linear-gradient(to right, #a200ff, #894cff);
+    transition: background-color 0.3s;
+    transform: skew(-20deg);
+}
+
+a.button_link:after {
+    content: '';
+    display: inline-block;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    background: transparent;
+    z-index: -1;
+    transition: all .3s;
+}
+
+a.button_link:hover:after {
+    background: #894cff;
+}
+
+a.button_link>.name {
+    display: inline-block;
+    transform: skew(20deg);
+}
+
+a.button_link:before {
+    content: '';
+    width: 2px;
+    height: 90%;
+    display: inline-block;
+    top: -10px;
+    left: 10px;
+    position: absolute;
+    background: #fff;
+    z-index: 1;
+    transition: all .3s;
+}
+
+a.button_link:hover:before {
+    background: #894cff;
+    top: 0;
+    height: 100%;
+}
+
+a.button_link.blue {
+    background: linear-gradient(to right, #63a4ff, #1976d2);
+}
+
+a.button_link.blue:hover:after {
+    background: #1976d2;
+}
+
+a.button_link.blue:hover:before {
+    background: #1976d2;
+}
+
+a.button_link.pink {
+    background: linear-gradient(to right, #e35183, #ad1457);
+}
+
+a.button_link.pink:hover:after {
+    background: #ad1457;
+}
+
+a.button_link.pink:hover:before {
+    background: #ad1457;
+}
+
+a.button_link.orange {
+    background: linear-gradient(to right, #ff9d3f, #ef6c00);
+}
+
+a.button_link.orange:hover:after {
+    background: #ef6c00;
+}
+
+a.button_link.orange:hover:before {
+    background: #ef6c00;
+}
+
+.menu_block .menu_link {
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    color: #fff;
+    padding: 5px 30px;
+    margin: 10px 10px;
+    position: relative;
+    transform: skew(-20deg);
+}
+
+.menu_block .menu_link .name {
+    display: inline-block;
+    transform: skew(20deg);
+}
+
+.menu_block .menu_link:after {
+    content: '';
+    width: 2px;
+    height: 140%;
+    display: inline-block;
+    top: -100%;
+    right: 10px;
+    position: absolute;
+    z-index: 1;
+    transition: all .3s;
+    background: transparent;
+}
+
+.menu_block .menu_link.active:after,
+.menu_block .menu_link:hover:after {
+    top: -10px;
+    background: #fff;
+}
